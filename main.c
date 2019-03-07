@@ -1,7 +1,61 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+//-----------------------------------------------------------
+//HEAP
 
+
+int heap_sort(int *vetor, int tamanho){
+   
+   int pai_direita, pai_esquerda, aux, contador;
+
+   
+   for(contador = tamanho-1;  contador >= 0;  contador-- ){
+      
+      
+	  //descobrindo o a raiz de cada galho
+      pai_direita  = (contador / 2) - 1;
+      pai_esquerda = (contador - 2) / 2;
+      
+      
+	  //trocando caso a raiz seja manor que o galho da direita
+       if(vetor[contador] > vetor[pai_direita]){
+         
+         aux = vetor[contador];
+         vetor[contador] = vetor[pai_direita];
+         vetor[pai_direita] = aux;         
+         
+      }
+      
+      //trocando caso a raiz seja menor que o galho da esquerda
+      else if (vetor[contador-1] > vetor[pai_esquerda] ){
+
+         aux = vetor[contador-1];
+         vetor[contador-1] = vetor[pai_esquerda];
+         vetor[pai_esquerda] = aux;
+         
+      }
+
+   }
+}
+
+
+//-----------------------------------------------------------
+//Counting
+void counting_sort(int vetor[],int maximo)
+{
+     int count[2000];
+	 int i,j;
+     
+     for(i=0;i<2000;++i)
+      
+	 count[vetor[i]] = count[vetor[i]] + 1; //conta e salva no novo vetor
+      
+     
+     for(i=0;i<=10;++i) //copia pro vetor original
+     vetor[i] = count[i];
+       
+   }
 
 void insertionsort( int vetor[], int tamanho)
 {
@@ -43,14 +97,14 @@ void quicksort(int vetor[10], int iniciovetor, int finalvetor){
    
    i = iniciovetor; j = finalvetor;
    
-   meiovetor = (int) ((i + j) / 2); //determina qual o indice mais prÛximo ao meio do vetor
+   meiovetor = (int) ((i + j) / 2); //determina qual o indice mais pr√≥ximo ao meio do vetor
    
    pivo = vetor[meiovetor]; // define o pivo como sendo o elemento central do vetor
    
    do{
-      while (vetor[i] < pivo) i = i + 1; // percorre vetor enquanto elemento for menor que o pivÙ escolhido
+      while (vetor[i] < pivo) i = i + 1; // percorre vetor enquanto elemento for menor que o piv√¥ escolhido
       
-	  while (vetor[j] > pivo) j = j - 1; // percorre vetor enquanto elemento for maior que o pivÙ escolhido
+	  while (vetor[j] > pivo) j = j - 1; // percorre vetor enquanto elemento for maior que o piv√¥ escolhido
       
       if(i <= j){ 
          aux = vetor[i];
@@ -60,17 +114,17 @@ void quicksort(int vetor[10], int iniciovetor, int finalvetor){
          j = j - 1;
       }
    } 
-	while(j > i); //Ao final desta linha os elementos menores que o pivo estao a sua esquerda, e os maiores ‡ direita
+	while(j > i); //Ao final desta linha os elementos menores que o pivo estao a sua esquerda, e os maiores √† direita
    
    
-   // È chamada novamente a funÁ„o para realizar o quicksort nos vetores resultantes
+   // √© chamada novamente a fun√ß√£o para realizar o quicksort nos vetores resultantes
    if(iniciovetor < j) quicksort(vetor, iniciovetor, j); 
    
    if(i < finalvetor) quicksort(vetor, i, finalvetor);   
 
 }
 
-void merge(int vetor[],int iniciovetor1,int finalvetor1,int iniciovetor2,int finalvetor2) // Funcao merge responsavel por mesclar os vetores resultantes apÛs o fim das divisoes do mergesort
+void merge(int vetor[],int iniciovetor1,int finalvetor1,int iniciovetor2,int finalvetor2) // Funcao merge responsavel por mesclar os vetores resultantes ap√≥s o fim das divisoes do mergesort
 {
 	int aux[10], i, j, k;	
 	
@@ -140,7 +194,7 @@ int main() {
 	
 
 	
-	printf("Digite a OpÁ„o: \n 1 - Insertion Sort \n 2 - Selection Sort \n 3 - QuickSort \n 4 - MergeSort \n" );
+	printf("Digite a Op√ß√£o: \n 1 - Insertion Sort \n 2 - Selection Sort \n 3 - QuickSort \n 4 - MergeSort \n 5 - CountingSort \n 6 - HeapSort \n" );
 	
 	scanf ("%d", &opcao);
 	
@@ -171,6 +225,15 @@ int main() {
 			
 			break;	
 	
+		case 5: 
+			countingsort(vetor, 10); // Pois no nosso caso, sempre temos um vetor de 10 elementos.
+			
+			break;	
+			
+		case 6: 
+			heapsort(vetor, 10); // Pois no nosso caso, sempre temos um vetor de 10 elementos.
+			
+			break;	
 	
 		
 		default:
